@@ -6,13 +6,15 @@ import org.springframework.util.StringUtils;
 
 public class SecurityUtils {
 
-    public static final String ROLE_PREFIX = "Role_";
+    public static final String ROLE_PREFIX = "ROLE_";
     public static final String AUTH_HEADER = "authorization";
     public static final String AUTH_TOKEN_TYPE = "Bearer";
     public static final String AUTH_TOKEN_PREFIX = AUTH_TOKEN_TYPE + " ";
 
     public static SimpleGrantedAuthority convertToAuthority(String role) {
-        String formattedRole = role.startsWith(ROLE_PREFIX) ? role : ROLE_PREFIX + role;
+        String formattedRole = role.startsWith(ROLE_PREFIX)
+                ? role
+                : ROLE_PREFIX + role.replace("Role_", "");
         return new SimpleGrantedAuthority(formattedRole);
     }
 

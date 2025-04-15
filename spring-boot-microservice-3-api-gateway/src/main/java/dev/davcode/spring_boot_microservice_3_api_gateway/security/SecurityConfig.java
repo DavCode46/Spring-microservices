@@ -1,7 +1,10 @@
 package dev.davcode.spring_boot_microservice_3_api_gateway.security;
 
 
+import dev.davcode.spring_boot_microservice_3_api_gateway.entities.Role;
 import dev.davcode.spring_boot_microservice_3_api_gateway.security.jwt.JwtAuthorizationFilter;
+import feign.Request;
+import jakarta.ws.rs.HttpMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,18 +36,23 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/authentication/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/gateway/inmueble").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/gateway/inmueble/**").hasRole(Role.ADMIN.name())
+                        .requestMatchers("/gateway/inmueble/**").hasRole(Role.ADMIN.name())
+                        .requestMatchers(HttpMethod.GET, "/gateway/compra/{userId}").authenticated()
+                        .requestMatchers("/gateway/compra/**").authenticated()
                         .anyRequest().authenticated()
                 )
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Sin estado
+                .addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class) // Añadir filtro JWT antes del filtro de autenticación
                 .build();
     }
+
 
     @Bean
     public JwtAuthorizationFilter jwtAuthorizationFilter() {
