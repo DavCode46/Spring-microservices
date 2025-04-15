@@ -17,5 +17,4 @@ public class SpringBootMicroservice3ApiGatewayApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootMicroservice3ApiGatewayApplication.class, args);
 	}
-
 }

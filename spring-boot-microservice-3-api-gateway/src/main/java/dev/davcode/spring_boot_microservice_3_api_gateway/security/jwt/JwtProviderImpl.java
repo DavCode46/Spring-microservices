@@ -1,5 +1,6 @@
 package dev.davcode.spring_boot_microservice_3_api_gateway.security.jwt;
 
+import dev.davcode.spring_boot_microservice_3_api_gateway.entities.User;
 import dev.davcode.spring_boot_microservice_3_api_gateway.security.UserPrincipal;
 import dev.davcode.spring_boot_microservice_3_api_gateway.utils.SecurityUtils;
 import io.jsonwebtoken.Claims;
@@ -48,6 +49,19 @@ public class JwtProviderImpl implements JwtProvider{
                 .subject(auth.getUsername())
                 .claim("roles", authorities)
                 .claim("userId", auth.getId())
+                .expiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION_IN_MS))
+                .signWith(getSigningKey())
+                .compact();
+    }
+
+    @Override
+    public String generateToken(User user) {
+        Key key = Keys.hmacShaKeyFor(JWT_SECRET.getBytes(StandardCharsets.UTF_8));
+
+        return Jwts.builder()
+                .subject(user.getUsername())
+                .claim("roles", user.getRole())
+                .claim("userId", user.getId())
                 .expiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION_IN_MS))
                 .signWith(getSigningKey())
                 .compact();
