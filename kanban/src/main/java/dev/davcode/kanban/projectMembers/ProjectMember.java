@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @Table(name = "project_members")
 @Data
 @Builder
-@NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class ProjectMember {

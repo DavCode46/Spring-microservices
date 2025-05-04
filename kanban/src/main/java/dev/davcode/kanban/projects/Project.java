@@ -11,7 +11,6 @@ import java.util.Set;
 
 @Data
 @RequiredArgsConstructor
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity

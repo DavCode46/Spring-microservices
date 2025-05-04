@@ -75,7 +75,7 @@ public class AuthService {
     }
 
     private void revokeAllUserTokens(User user) {
-        List<Token> validUserTokens = tokenRepository.finAllValidIsFalseOrRevokedIsFalseByUserId(user.getId());
+        List<Token> validUserTokens = tokenRepository.findAllValidIsFalseOrRevokedIsFalseByUserId(user.getId());
 
         if(!validUserTokens.isEmpty()){
             for(Token token : validUserTokens) {

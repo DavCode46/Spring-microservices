@@ -4,7 +4,7 @@ server:
 application:
   security:
     jwt:
-      secret-key: MjhfrjVudfeiufHiydeiSjifjuri
+      secret-key: v1hT8KQp4z6Q2rB5mY7nF1sR3cD9jLwV0eZaXpQuNnM=
       expiration: 86400000
       refresh-token:
         expiration: 604800000
@@ -17,7 +17,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect

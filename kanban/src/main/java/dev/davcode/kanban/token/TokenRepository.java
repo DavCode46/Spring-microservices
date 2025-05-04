@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface TokenRepository extends JpaRepository<Token, Long> {
 
-    List<Token> finAllValidIsFalseOrRevokedIsFalseByUserId(Long id);
+    List<Token> findAllValidIsFalseOrRevokedIsFalseByUserId(Long id);
 
     Optional<Token> findByToken(String jwtToken);
 }

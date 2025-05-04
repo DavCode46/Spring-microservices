@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @Table(name = "tasks")
 @Data
 @Builder
-@NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class Task {

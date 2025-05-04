@@ -1,6 +1,6 @@
 package dev.davcode.kanban.users;
 
-import dev.davcode.kanban.comments.Comment;
+
 import dev.davcode.kanban.projectMembers.ProjectMember;
 import dev.davcode.kanban.tasks.Task;
 import dev.davcode.kanban.token.Token;
@@ -14,9 +14,8 @@ import java.util.Set;
 @Table(name = "users")
 @Data
 @Builder
-@AllArgsConstructor
-@RequiredArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
