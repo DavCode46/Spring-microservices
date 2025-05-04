@@ -1,0 +1,26 @@
+package dev.davcode.jwt.user;
+
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.StreamSupport;
+
+@RestController
+@RequestMapping("/users")
+@AllArgsConstructor
+public class UserController {
+
+    private UserRepository userRepository;
+
+    @GetMapping
+    public List<UserResponse> getUsers() {
+        final var users = userRepository.findAll();
+
+        return users.stream()
+                .map(user -> new UserResponse(user.getName(), user.getEmail()))
+                .toList();
+    }
+}
